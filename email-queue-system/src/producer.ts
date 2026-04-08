@@ -6,7 +6,7 @@ async function main() {
   const job = await emailQueue.add(
     "send-email",
     {
-      to: "user@test.com",
+      to: "rajeshkayal8001@gmail.com",
       subject: "Welcome 🚀",
       body: "Hello from queue system",
     },

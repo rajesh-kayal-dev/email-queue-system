@@ -15,10 +15,12 @@
   "description": "",
   "dependencies": {
     "bullmq": "^5.73.1",
-    "ioredis": "^5.10.1"
+    "ioredis": "^5.10.1",
+    "nodemailer": "^8.0.5"
   },
   "devDependencies": {
     "@types/node": "^25.5.2",
+    "@types/nodemailer": "^8.0.0",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2"
   }

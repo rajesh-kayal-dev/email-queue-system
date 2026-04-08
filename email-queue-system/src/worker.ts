@@ -1,5 +1,6 @@
 import { Worker } from "bullmq";
 import { connection } from "./config/redis.js";
+import { sendEmail } from "./services/email.service.js";
 
 console.log("👷 Worker started...");
 
@@ -9,11 +10,12 @@ const worker = new Worker(
     console.log("📩 Processing job:", job.name);
     console.log("📦 Data:", job.data);
 
-    // 🔥 simulate random failure
-    if (Math.random() < 0.7) {
-      console.log("❌ Simulated failure");
-      throw new Error("Email failed!");
-    }
+    // 🔥 real email sending
+    await sendEmail(
+      job.data.to,
+      job.data.subject,
+      job.data.body
+    );
 
     console.log("✅ Email sent to:", job.data.to);
   },
@@ -21,3 +23,12 @@ const worker = new Worker(
     connection,
   }
 );
+
+// events
+worker.on("completed", (job) => {
+  console.log(`🎉 Job ${job.id} completed`);
+});
+
+worker.on("failed", (job, err) => {
+  console.log(`💥 Job ${job?.id} failed:`, err.message);
+});
