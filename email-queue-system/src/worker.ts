@@ -9,8 +9,11 @@ const worker = new Worker(
     console.log("📩 Processing job:", job.name);
     console.log("📦 Data:", job.data);
 
-    // simulate email sending
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // 🔥 simulate random failure
+    if (Math.random() < 0.7) {
+      console.log("❌ Simulated failure");
+      throw new Error("Email failed!");
+    }
 
     console.log("✅ Email sent to:", job.data.to);
   },
